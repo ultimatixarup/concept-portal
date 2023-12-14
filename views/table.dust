@@ -1,0 +1,453 @@
+{>"layout"/}
+ 
+{<body}
+
+
+
+<style>
+        .lightgrey{
+            background-color: #c0cfe4;
+        }
+       .table> :not(caption)>*>* {
+              padding: 0.5rem 0.5rem;
+              background-color: #FFFFFF;
+              border-bottom-width: 1px;
+              box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+              
+              font-family:Roboto,Helvetica,Arial,sans-serif;
+              
+
+        }
+
+
+        .table td {
+          white-space: wrap;
+          font-family:Roboto,Helvetica,Arial,sans-serif;
+          font-size: 70% !important;
+          font-color: #000000
+          
+        }
+
+
+        .table td,
+        .table th {
+          white-space: wrap;
+          font-family:Roboto,Helvetica,Arial,sans-serif;
+          
+          
+        }
+
+        .table th {
+          
+          background-color: #e3e3e3;
+          font-weight:bold;
+
+        }
+         
+        .table thead th div label{
+          font-weight:bold !important;
+          
+        }
+
+        .table thead th label{
+          font-weight:bold !important;
+          
+          font-size: 90% !important
+        }
+
+</style>
+
+
+
+    
+  {>"sidebar"/}
+
+
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Concepts <a href="/addreport"><button style="display: block;margin-left: auto;margin-right: 5px;float:right" type="button" class="btn btn-secondary" data-dismiss="modal">Add</button></a>
+            </h6>
+              </div>
+              
+              
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+            
+                  <!--Get Concept Modal-->
+                  <div class="modal fade" id="advanceSearchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+                  <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                  <h4 class="modal-title" id="searchModalLabel">Advanced Search</h4>
+                  </div>
+                  <div class="modal-body">
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class><b>Concept Title:</b></label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="title" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Status:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="status" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Description:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="description" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Modification Date:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="modificationdate" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Creation Date:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="creationdate" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Employee Name:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="name" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Business Impact:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="businessimpactdescription" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>TRL Title:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="TRL Title" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Material Title:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="supportmaterialtitle" />
+                  </div>
+                  </div>
+                  <div class="form-group row">
+                  <div class="col-sm-2 col-form-label">
+                  <label class>Patent Title:</label>
+                  </div>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control" name="patenttitle" />
+                  </div>
+                  </div>
+                  
+                  <!--search button-->
+                  <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#formModal">
+                                      Search
+                  </button>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                   
+                  <!--main homepage-->
+                  <div class="container">
+                  <div class="row">
+                  <div class="col-md-offset-2 col-md-12">
+                  <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                  <th>
+                  <div class="form in-line">
+                  <label for="search-title">Concept Title</label>
+                  <input type="text" class="form-control column-search" data-column="0" placeholder="Search Title" value="{titleSearch}">
+                  </div>
+                  </th>
+                  <th>
+                  <label for="search-status">Status</label>
+                  <input type="text" class="form-control column-search" data-column="1" placeholder="Search Status" value="{statusSearch}">
+                  </th>
+                  <th>
+                  <label for="search-description">Description</label>
+                  <input type="text" class="form-control column-search" data-column="2" placeholder="Search Description" value="{descSearch}">
+                  </th>
+                  <th>
+                  <label for="search-employee">Author</label>
+                  <input type="text" class="form-control column-search" data-column="3" placeholder="Search Employee" value="{authorSearch}">
+                  </th>
+                  <th>
+                  <label for="search-creation-date">Creation Date</label>
+                  </th>
+                  <th>
+                  <label for="search-modification-date">Modification Date</label>
+                  </th>
+                  <th> 
+                  
+                  </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                                      {#concept}
+                  <tr class="lightgrey">
+                  <!--<tr>-->
+                  <td>{title}</td>
+                  <td>{status}</td>
+                  <td>{description}</td>
+                  <td>
+                  <span class="employee-tooltip" data-toggle="tooltip" data-placement="top" data-html="true" title="Role: {role}, Initial: {initial}"></span>
+                                                  {name}
+                  </span>
+                  </td>
+                  <td>{creationdate|formatDate}</td>
+                  <td>{modificationdate|formatDate}
+                  <td>
+                  <button class="btn btn-default view-concept" data-id="{conceptid}" data-toggle="collapse" href="#concept_{conceptid}" aria-expanded="false" aria-controls="concept_{conceptid}">
+                                                  View
+                  </button>
+                  </td>
+                  </tr>
+                  <tr class="hidden-row collapse" data-expanded="false" id="concept_{conceptid}">
+                  <td colspan="6">
+                  <div class="concept-info">
+                  <p><strong>Inscope:</strong> {inscope}</p>
+                  <p><strong>Functional Group:</strong> {functionalGroup}</p>
+                  <p><strong>System Function:</strong> {systemFunction}</p>
+                  <p><strong>Function:</strong> {function}</p>
+                  <p><strong>Subsystem:</strong> {subsystemname}</p>
+                  <p><strong>Module:</strong> {module}</p>
+                   
+                                                  <p><strong>Business Impact Description:</strong> {businessimpactdescription}</p>
+                   
+                                              </div>
+                  <p><strong>Support Material:</strong></p>
+                  <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                  <th>Material Title</th>
+                  <th>Material Type</th>
+                  <th>Material Location</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                                                      {#supportmaterial}
+                  <tr>
+                  <td>{supportmaterialtitle}</td>
+                  <td>{type}</td>
+                  <td>{location}</td>
+                  </tr>
+                                                      {/supportmaterial}
+                  </tbody>
+                  </table>
+                  <p><strong>TRL Advancements:</strong></p>
+                  <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                  <th>Current TRL</th>
+                  <th>Next Steps</th>
+                  <th>Activity Date</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                                                      {#trl}
+                  <tr>
+                  <td>{trltitle}</td>
+                  <td>{trldescription}</td>
+                  <td>{activitydate|formatDate}</td>
+                  </tr>
+                                                      {/trl}
+                  </tbody>
+                  </table>
+                  <p><strong>Patents:</strong></p>
+                  <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                  <th>Author</th>
+                  <th>IDF Submission Date</th>
+                  <th>IDF Status</th>
+                  <th>Filed Date</th>
+                  <th>Patented Date</th>
+                  <th>Description</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                                                      {#patent}
+                  <tr>
+                  <td>{author}</td>
+                  <td>{idfsubmissiondate|formatDate}</td>
+                  <td>{idfstatus}</td>
+                  <td>{fileddate|formatDate}</td>
+                  <td>{patenteddate|formatDate}</td>
+                  <td>{patentdescription}</td>
+                  </tr>
+                                                      {/patent}
+                  </tbody>
+                  </table>
+                  <br />
+                  <br />
+                  <!--creates the edit button-->
+                  <button class="btn btn-default edit-concept"data-toggle="modal" data-target="#editFormModal"
+                                          data-id="{conceptid}" data-title="{title}" data-status="{status}" data-description="{description}" data-inscope="{inscope}" data-creationdate="{creationdate}" data-modificationdate="{modificationdate}"
+                                          data-businessimpactdescription="{businessimpactdescription}" data-name="{name}"
+                                          data-functionalgroup="{functionalGroup}" data-systemFunction="{systemFunction}" data-functionname="{functionname}" data-subsystemname="{subsystemname}" data-modulename="{modulename}">
+                                              Edit
+                  </button>
+                  <!--creates the delete button in modal-->
+                  <button class="btn btn-danger delete-concept" data-conceptid="{conceptid}" style="float: right" >
+                                               Delete
+                  </button>
+                  <br />
+                  </td>
+                  </tr>
+                                      {/concept}
+                  </tbody>
+                  </table>
+                  </div>
+                  </div>
+                  </div>
+                   
+                   
+                  <style>
+                      .full-screen-modal .modal-dialog {
+                          max-width: 95%;
+                          height: 95%;
+                          margin: 0 auto;
+                      }
+                      .full-screen-modal .modal-content {
+                          height: auto;
+                          min-height: 100%;
+                          border-radius: 0;
+                      }
+                  </style>
+                  <div class="modal fade full-screen-modal" id="editFormModal" tabindex="-1" role="dialog" aria-labelledby="editFormModalLabel">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <form method="post" action="/edit" id="edit-form">
+                  <input type="hidden" id="edit-form-id" name="id" />
+                  <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel"></h4>
+                  </div>
+                  <div class="modal-body">
+                  <div class="form-group">
+                  <label id="edit-form-title-label">Title</label>
+                  <input type="text" class="form-control" name="title" id="edit-form-title" />
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-status-label">Status</label>
+                  <textarea class="form-control" name="status" id="edit-form-status"></textarea>
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-description-label">Description</label>
+                  <textarea class="form-control" name="description" id="edit-form-description"></textarea>
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-inscope-label">Inscope</label>
+                  <textarea class="form-control" name="inscope" id="edit-form-inscope"></textarea>
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-name-label">Employee Name</label>
+                  <input class="form-control" name="name" id="edit-form-name">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-creationdate-label">Creation Date</label>
+                  <input class="form-control" name="creationdate" id="edit-form-creationdate">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-modificationdate-label">Modification Date</label>
+                  <input class="form-control" name="modificationdate" id="edit-form-modificationdate">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-businessimpactdescription-label">Business Impact:</label>
+                  <textarea class="form-control" name="businessimpactdescription" id="edit-form-businessimpactdescription"></textarea>
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-functionalGroup-label">Functional Group</label>
+                  <input class="form-control" name="functionalGroup" id="edit-form-functionalGroup">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-systemFunction-label">System Function</label>
+                  <input type="text" class="form-control" name="systemFunction" id="edit-form-systemFunction">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-functionname-label">Function</label>
+                  <input type="text" class="form-control" name="functionname" id="edit-form-functionname">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-subsystemname-label">Subsystem</label>
+                  <input class="form-control" name="subsystemname" id="edit-form-subsystemname">
+                  </div>
+                  <div class="form-group">
+                  <label id="edit-form-modulename-label">Module</label>
+                  <input type="text" class="form-control" name="modulename" id="edit-form-modulename">
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Save"/>
+                  </div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+        {>"footer"/}
+    </div>
+  </main>
+   {>"rightnav"/}
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+{/body}

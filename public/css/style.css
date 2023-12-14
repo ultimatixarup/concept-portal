@@ -1,0 +1,5 @@
+/* makes the background a light grey and pushes the body down a bit by the margin */
+body{
+    margin-top:10px;
+    background: #f8f9fa;
+}

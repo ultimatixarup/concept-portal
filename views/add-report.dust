@@ -1,0 +1,592 @@
+{>"layout"/}
+ 
+{<body}
+
+<h1>Add Concept</h1>
+ 
+<div id="message"></div>
+ 
+<form action="/add" method="POST">
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label"><strong>Concept</strong></label>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Title</label>
+
+    <div class="col-sm-10">
+
+        <input type="text" class="form-control" name="title" />
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Status:</label>
+
+    <div class="col-sm-4">
+
+        <select class="form-control" name="status">
+
+            <option value="Not Started">Not Started</option>
+
+            <option value="In Progress">In Progress</option>
+
+            <option value="Completed">Completed</option>
+
+        </select>
+
+    </div>
+
+    <label class="col-sm-2 col-form-label">Inscope:</label>
+
+    <div class="col-sm-4">
+
+        <textarea class="form-control" name="inscope"></textarea>
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Creation Date</label>
+
+    <div class="col-sm-10">
+
+        <input class="form-control" name="creationdate">
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Description</label>
+
+    <div class="col-sm-10">
+
+        <textarea class="form-control" name="description"></textarea>
+
+    </div>
+
+</div>
+
+<br /><br />
+ 
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label"><strong>Employee</strong></label>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Name</label>
+
+    <div class="col-sm-10">
+
+        <input class="form-control" name="name">
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">4-Letter Initial</label>
+
+    <div class="col-sm-2">
+
+        <input class="form-control" name="initial">
+
+    </div>
+
+</div>
+
+<br /><br />
+ 
+ 
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label"><strong>System Breakdown</strong></label>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Functional Group</label>
+
+    <div class="col-sm-10">
+
+        <input class="form-control" name="functionalGroup">
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">System Function</label>
+
+    <div class="col-sm-10">
+
+        <input type="text" class="form-control" name="systemFunction" />
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Function</label>
+
+    <div class="col-sm-10">
+
+        <input type="text" class="form-control" name="functionname" />
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Subsystem</label>
+
+    <div class="col-sm-10">
+
+        <input class="form-control" name="subsystemname">
+
+    </div>
+
+</div>
+
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Module</label>
+
+    <div class="col-sm-10">
+
+        <input type="text" class="form-control" name="module" />
+
+    </div>
+
+</div>
+
+<br /><br />
+ 
+ 
+<div class="form-group row">
+
+    <label class="col-sm-2 col-form-label"><strong>Business Impact</strong></label>
+
+    <div class="col-sm-10">
+
+        <textarea class="form-control" name="businessimpactdescription"></textarea>
+
+    </div>
+
+</div>
+
+<hr>
+
+</hr>
+
+    <p><strong>TRL Advancements:</strong></p>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>TRL Title</th>
+
+                <th>TRL Description</th>
+
+                <th>Activity Date</th>
+
+                <th>Needed To Advance</th>
+
+            </tr>
+
+        </thead>
+
+    </table>
+
+    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addTRLformModal">
+
+        Add TRL Advancement
+
+    </button>
+
+     <!-- Add TRL Form Modal -->
+
+     <div class="modal fade" id="addTRLformModal" tabindex="-1" role="dialog" aria-labelledby="trlformModalLabel">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <form method="post" action="/add">
+
+                    <div class="modal-header">
+
+                        <h4 class="modal-title" style="float: left;">Add TRL Advancement</h4>
+
+                        <button type="button" class="close" style="float: right;" data-dismiss="modal" aria-label="Close">
+
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+
+                        <div style="clear: both;"></div>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+
+                            <label>TRL Title</label>
+
+                            <input type="text" class="form-control" name="trltitle" />
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>TRL Description</label>
+
+                            <textarea class="form-control" name="trldescription"></textarea>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Activity Date</label>
+
+                            <textarea class="form-control" name="trldescription"></textarea>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Needed To Advance</label>
+
+                            <textarea class="form-control" name="neededtoadvance"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        <input type="submit" class="btn btn-primary" value="Save"/>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<br />
+
+<hr>
+
+</hr>
+ 
+    <p><strong>Support Material:</strong></p>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Material Title</th>
+
+                <th>Material Type</th>
+
+                <th>Material Location</th>
+
+            </tr>
+
+        </thead>
+
+    </table>
+
+    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addmaterialformModal">
+
+        Add Support Material
+
+    </button>
+
+    <form method="post" id="support-material-form">
+
+         <!-- Add Support Material Form Modal -->
+
+         <div class="modal fade" id="addmaterialformModal" tabindex="-1" role="dialog" aria-labelledby="materialformModalLabel">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <form method="post" action="/add">
+
+                        <div class="modal-header">
+
+                            <h4 class="modal-title" style="float: left;">Add Support Material</h4>
+
+                            <button type="button" class="close" style="float: right;" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+
+                            <div style="clear: both;"></div>
+
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+
+                                <label>Material Title</label>
+
+                                <input type="text" class="form-control" name="supportmaterialtitle" />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Material Type</label>
+
+                                <textarea class="form-control" name="ype"></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Material Location</label>
+
+                                <textarea class="form-control" name="location"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                            <input type="submit" class="btn btn-primary" value="Save"/>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+<br />
+
+<hr>
+
+</hr>
+ 
+    <p><strong>Patents:</strong></p>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Patent Name</th>
+
+                <th>Filed Date</th>
+
+                <th>Patented Date</th>
+
+                <th>Description</th>
+
+            </tr>
+
+        </thead>
+
+    </table>
+
+    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addpatentformModal">
+
+        Add Patent
+
+    </button>
+
+         <!-- Add Patent Modal -->
+
+         <div class="modal fade" id="addpatentformModal" tabindex="-1" role="dialog" aria-labelledby="patentformModalLabel">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <form method="post" action="/add">
+
+                        <div class="modal-header">
+
+                            <h4 class="modal-title" style="float: left;">Add Patent</h4>
+
+                            <button type="button" class="close" style="float: right;" data-dismiss="modal" aria-label="Close">
+
+                                <span aria-hidden="true">&times;</span>
+
+                            </button>
+
+                            <div style="clear: both;"></div>
+
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+
+                                <label>Patent Title</label>
+
+                                <input type="text" class="form-control" name="patentname" />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Patent Description</label>
+
+                                <textarea class="form-control" name="patentdescription"></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Filed Date</label>
+
+                                <textarea class="form-control" name="fileddate"></textarea>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Patented Date</label>
+
+                                <textarea class="form-control" name="patenteddate"></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                            <input type="submit" class="btn btn-primary" value="Save"/>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<br />
+
+<hr>
+
+</hr>
+ 
+ 
+<hr>
+
+</hr>
+ 
+ 
+<button type="submit" id="submit-button" class="btn btn-default add-concept" style="float: right">
+
+    Submit
+
+</button>
+
+<button id="back-button" class="btn btn-default" style="float: left">
+
+    Back
+
+</button>
+
+</form>
+
+<!-- Message Modal -->
+
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="messageModalLabel">Notification</h5>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+            <span aria-hidden="true">&times;</span>
+
+          </button>
+
+        </div>
+
+        <div class="modal-body" id="modal-message-content">
+
+          <!-- The message will be populated here -->
+
+        </div>
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+ 
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+{/body}
