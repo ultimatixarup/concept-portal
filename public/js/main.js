@@ -1,11 +1,14 @@
 
 $(document).ready(function(){
 
-    // Submit button on Add-Report
+    
 
-    $('#submit-button').click(function(e){
+    $('#submit-button').on('click',function(e){
 
+        alert("submit clicked");
         e.preventDefault();
+
+        console.log("in submit button action");
 
         $.ajax({
 
@@ -15,13 +18,15 @@ $(document).ready(function(){
 
             data: $('form').serialize(),
 
-            success: function(){
+            success: function(data){
 
                 $('#modal-message-content').html('A concept has been added.');
 
                 $('#messageModal').modal('show');
 
                 $('form').trigger("reset");
+
+                document.write(data);
 
             },
 
@@ -50,6 +55,8 @@ $(document).ready(function(){
     // Support Materal Modal/Button on Add-Report
 
     $('#support-material-form').on('submit', function(e){
+
+        alert("support material submit");
 
         e.preventDefault();
 
@@ -174,6 +181,7 @@ $(document).ready(function(){
     // Search on enter
 
     $('.column-search').on('keydown', function(e) {
+       
 
         if(e.which == 13 ){
 
@@ -186,18 +194,22 @@ $(document).ready(function(){
         const descSearch = $('[data-column="2"]').val();
 
         const authorSearch = $('[data-column="3"]').val();
+
+        console.log("in main.js- descSearch:"+descSearch)
  
         // Now make an AJAX request to your server
-
-        $.get('/', { titleSearch, statusSearch, descSearch, authorSearch }, function(data) {
+        
+        $('body').html("loading.."); 
+        $.get('/table', { titleSearch, statusSearch, descSearch, authorSearch }, function(data) {
 
         // replace the current content with the new results
-
-                $('body').html(data);
+              // console.log(data);
+        
+       document.write(data); 
 
             });
 
-        }
+       }
 
     });
  
@@ -227,11 +239,11 @@ $(document).ready(function(){
 
         // Now make an AJAX request to your server
 
-        $.get('/', { titleSearch, statusSearch, descSearch, authorSearch }, function(data) {
+        $.get('/table', { titleSearch, statusSearch, descSearch, authorSearch }, function(data) {
 
             // replace the current content with the new results
 
-            $('body').html(data);
+            document.write(data); 
 
         });
 
@@ -278,3 +290,7 @@ $(document).ready(function(){
     });
 
 });
+
+function addConcept(){
+    alert("concept adding");
+}

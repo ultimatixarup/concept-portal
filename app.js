@@ -49,6 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
  
 // Gets data from tables
 app.get('/table', async (req, res) => {
+    console.log("in table-l52");
     try {      
         const client = await pool.connect();
         let conceptQuery = `
@@ -62,8 +63,11 @@ app.get('/table', async (req, res) => {
             WHERE true
         `;
         let searchParams = [];
+        
         let searchConditions = [];
         const { titleSearch, statusSearch, descSearch, authorSearch } = req.query;
+
+        console.log("table.dust---"+searchParams);
         if (titleSearch) {
             searchConditions.push("LOWER(c.title) LIKE LOWER($" + (searchParams.length + 1) + ")" );
             searchParams.push(`%${titleSearch}%`);
@@ -83,10 +87,12 @@ app.get('/table', async (req, res) => {
         if (searchConditions.length > 0) {
             conceptQuery += " AND (" + searchConditions.join(" AND ") + ")";
         }
+        console.log("table.dust---"+searchParams);
         //const conceptResult = await client.query(conceptQuery)
- 
+        console.log("in table-l52=="+conceptQuery);
         const conceptResult = await client.query(conceptQuery, searchParams);
         //const conceptSearchResult = await client.query(conceptSearchQuery, searchParams);
+        console.log("in table : l91="+conceptResult);
         const concepts = conceptResult.rows;
  
  
@@ -150,7 +156,7 @@ app.get('/table', async (req, res) => {
             //console.log("Module Data: ", concept.module);
         };
         /// data pull test
-        //console.log("Concept Data:", concepts);
+        console.log("Concept Data:", concepts);
         res.render('table', { 
             concept: concepts,
             titleSearch,
@@ -170,6 +176,7 @@ app.get('/table', async (req, res) => {
 // Adds Concepts
 app.post('/add', async(req, res) => {
     let client;
+    console.log("inside add method");
     try {
         client = await pool.connect();
         const sanitizedValue = (value) => value === "" ? null : value;
@@ -200,9 +207,14 @@ app.post('/add', async(req, res) => {
             VALUES ($1, $2, $3, $4, $5)
             RETURNING conceptid
         `;
+
+        console.log("concept query="+conceptQuery);
         const conceptValues = [title, status, description, inscope, creationdate];
+        console.log("concpet values:"+conceptValues);
         const conceptResult = await client.query(conceptQuery, conceptValues);
         const conceptid = conceptResult.rows[0].conceptid;
+
+        console.log("concept id="+conceptid)
         // test
         //console.log(conceptQuery, conceptResult);
         //console.log(conceptResult);
@@ -266,10 +278,10 @@ app.post('/add', async(req, res) => {
          const conceptsubsystemlkupValues = [subsystemid, conceptid];
          await client.query(conceptsubsystemlkupQuery, conceptsubsystemlkupValues);
         }
- 
-        // Commit the transaction
+
+        
         await client.query('COMMIT');
-        res.status(200).send('Sucess');
+        res.render('table');
     } catch (err) {
         console.error('Error executing query', err.stack);
         //res.status(500).send('Internal Server Error');
@@ -377,127 +389,12 @@ app.get('/sign-in', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
+    console.log("in dashboard.........");
     res.render('dashboard');
 });
  
 // takes user to add concept page
-app.get('/table', async (req, res) => {
-    
-    try {      
-        const client = await pool.connect();
-        let conceptQuery = `
-            select c.*, bi.*, acl.*, e.name, e.employeeid, csl.*, s.*
-            FROM mydb.concept as c
-            LEFT JOIN mydb.BusinessImpact as bi ON c.conceptid = bi.conceptid
-            LEFT JOIN mydb.AuthorConceptLkup as acl ON c.ConceptId = acl.ConceptId
-            LEFT JOIN mydb.Employee as e ON acl.employeeid = e.employeeId
-            LEFT JOIN mydb.ConceptSubsystemLkup as csl ON c.conceptid = csl.conceptid
-            LEFT JOIN mydb.Subsystem as s ON csl.subsystemid = s.subsystemid
-            WHERE true
-        `;
-        let searchParams = [];
-        let searchConditions = [];
-        const { titleSearch, statusSearch, descSearch, authorSearch } = req.query;
-        if (titleSearch) {
-            searchConditions.push("LOWER(c.title) LIKE LOWER($" + (searchParams.length + 1) + ")" );
-            searchParams.push(`%${titleSearch}%`);
-        }
-        if  (statusSearch) {
-            searchConditions.push("LOWER(c.status) LIKE LOWER($" + (searchParams.length + 1) + ")" );
-            searchParams.push(`%${statusSearch}%`);
-        }
-        if (descSearch) {
-            searchConditions.push("LOWER(c.description) LIKE LOWER($" + (searchParams.length + 1) + ")" );
-            searchParams.push(`%${descSearch}%`);
-        }
-        if (authorSearch) {
-            searchConditions.push("LOWER(e.name) LIKE LOWER($" + (searchParams.length + 1) + ")" );
-            searchParams.push(`%${authorSearch}%`);
-        }
-        if (searchConditions.length > 0) {
-            conceptQuery += " AND (" + searchConditions.join(" AND ") + ")";
-        }
-        //const conceptResult = await client.query(conceptQuery)
- 
-        const conceptResult = await client.query(conceptQuery, searchParams);
-        //const conceptSearchResult = await client.query(conceptSearchQuery, searchParams);
-        const concepts = conceptResult.rows;
- 
- 
-        // Loop over each concept and fetch the TRL advancements, support materials, and patents
-        for (const concept of concepts) {
-        // Format modification dates as MM-DD-YEAR
-        if(concept.modificationDate) {
-            const modifcationDate = new Date(concept.modificationdate);
-            const formattedModificationDate = modifcationDate.toLocaleDateString('en-US', {
-                month: '2-digit',
-                day: '2-digit',
-                year: 'numeric'
-            });                 
-            concept.modificationdate = formattedModificationDate;
-        } else {
-            concept.modificationDate = null;
-        }
-        if(concept.creationDate) {
-            const creationDate = new Date(concept.creationdate);
-            const formattedCreationDate = creationDate.toLocaleDateString('en-US', {
-                month: '2-digit',
-                day: '2-digit',
-                year: 'numeric'
-            }); 
-            concept.creationdate = formattedCreationDate;
-        } else {
-            concept.creationDate = null;
-        }
-            let trlQuery = 'SELECT * FROM mydb.ConceptTrlLkup as ctl JOIN mydb.TrlAdvancement as trl ON ctl.trlid = trl.trlid WHERE ctl.conceptid = $1';
-            let trlResult = await client.query(trlQuery, [concept.conceptid]);
-            concept.trl = trlResult.rows;
-            let materialQuery = 'SELECT * FROM mydb.ConceptMaterialLkup as cml JOIN mydb.SupportMaterial as sm ON cml.materialid = sm.supportmaterialId WHERE cml.ConceptId = $1';
-            let materialResult = await client.query(materialQuery, [concept.conceptid]);
-            concept.supportmaterial = materialResult.rows;
-            let patentQuery = 'SELECT * FROM mydb.PatentConceptLkup as pcl JOIN mydb.Patent as p ON pcl.patentid = p.patentId WHERE pcl.ConceptId = $1';
-            let patentResult = await client.query(patentQuery, [concept.conceptid]);
-            concept.patent = patentResult.rows;
-            let functionQuery = `
-                SELECT * FROM mydb.SubsystemFunctionLkup as sfl 
-                JOIN mydb.Function as f ON sfl.functionid = f.functionId 
-                JOIN mydb.ConceptSubsystemLkup as csl ON csl.subsystemid = sfl.subsystemid
-                WHERE csl.conceptId = $1`;
-            //concept.function = functionResult.rows.map(r=>r.functionname).join(", ");
- 
-            let functionResult = await client.query(functionQuery, [concept.conceptid]);
-            let functionNames = new Set(functionResult.rows.map(r => r.functionname));
-            let systemFunctions = new Set(functionResult.rows.map(r => r.systemfunction));
-            let functionalGroups = new Set(functionResult.rows.map(r => r.functionalgroup));
- 
-            concept.function = Array.from(functionNames).join(", ");
-            concept.systemFunction = Array.from(systemFunctions).join(", ");
-            concept.functionalGroup = Array.from(functionalGroups).join(", ");
- 
-            let moduleQuery = `
-                SELECT modulename FROM mydb.SubsystemModuleLkup as sml 
-                JOIN mydb.Module as m ON sml.moduleid = m.moduleId
-                JOIN mydb.ConceptSubsystemLkup as csl ON csl.subsystemid = sml.subsystemid
-                WHERE csl.conceptId = $1`;
-            let moduleResult = await client.query(moduleQuery, [concept.conceptid]);
-            concept.module = moduleResult.rows.map(r=>r.modulename).join(", ");
-            //console.log("Module Data: ", concept.module);
-        };
-        /// data pull test
-        //console.log("Concept Data:", concepts);
-        res.render('table', { 
-            concept: concepts,
-            titleSearch,
-            statusSearch,
-            descSearch,
-            authorSearch
-            });
-        client.release();
-    } catch (err) {
-        console.error('Error executing query', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
+
  
 // Server
 app.listen(3000, function() {

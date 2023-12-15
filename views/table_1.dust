@@ -43,14 +43,6 @@
           font-weight:bold;
 
         }
-
-        .table th input{
-          
-          background-color: #332d2d !important;
-          font-weight:bold;
-          color: #e3e3e3   !important; 
-
-        }
          
         .table thead th div label{
           font-weight:bold !important;
@@ -220,9 +212,7 @@
                   <label for="search-modification-date">Modification Date</label>
                   </th>
                   <th> 
-                  <a href="/table"><button id="clearSearch" type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#formModal">
-                                      Clear
-                  </button></a>
+                  
                   </th>
                   </tr>
                   </thead>
@@ -325,7 +315,7 @@
                   <br />
                   <br />
                   <!--creates the edit button-->
-                  <button class="btn btn-danger"data-toggle="modal" data-target="#editFormModal"
+                  <button class="btn btn-default edit-concept"data-toggle="modal" data-target="#editFormModal"
                                           data-id="{conceptid}" data-title="{title}" data-status="{status}" data-description="{description}" data-inscope="{inscope}" data-creationdate="{creationdate}" data-modificationdate="{modificationdate}"
                                           data-businessimpactdescription="{businessimpactdescription}" data-name="{name}"
                                           data-functionalgroup="{functionalGroup}" data-systemFunction="{systemFunction}" data-functionname="{functionname}" data-subsystemname="{subsystemname}" data-modulename="{modulename}">
