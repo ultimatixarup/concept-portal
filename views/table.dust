@@ -14,7 +14,7 @@
               border-bottom-width: 1px;
               box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
               
-              font-family:Roboto,Helvetica,Arial,sans-serif;
+              font-family:Arial;
               
 
         }
@@ -22,9 +22,9 @@
 
         .table td {
           white-space: wrap;
-          font-family:Roboto,Helvetica,Arial,sans-serif;
-          font-size: 70% !important;
-          font-color: #000000
+          font-family:Arial;
+          font-size: 98% !important;
+          font-color: #162dd8 !important;
           
         }
 
@@ -32,7 +32,8 @@
         .table td,
         .table th {
           white-space: wrap;
-          font-family:Roboto,Helvetica,Arial,sans-serif;
+          font-family:Arial;
+          color: #000000 !important;
           
           
         }
@@ -78,7 +79,7 @@
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Concepts <a href="/addreport"><button style="display: block;margin-left: auto;margin-right: 5px;float:right" type="button" class="btn btn-secondary" data-dismiss="modal">Add</button></a>
+                <h6 class="text-white text-capitalize ps-3">Concepts <a href="/addreport?edit=false"><button style="display: block;margin-left: auto;margin-right: 5px;float:right" type="button" class="btn btn-secondary" edit="false" data-dismiss="modal">Add</button></a>
             </h6>
               </div>
               
@@ -325,12 +326,15 @@
                   <br />
                   <br />
                   <!--creates the edit button-->
-                  <button class="btn btn-danger"data-toggle="modal" data-target="#editFormModal"
+                  <input type="hidden" name="conceptid" value="{conceptid}" />
+
+                  <button id="edit-button-table" class="btn btn-danger edit-concept" data-toggle="modal" data-target="#editFormModal"
                                           data-id="{conceptid}" data-title="{title}" data-status="{status}" data-description="{description}" data-inscope="{inscope}" data-creationdate="{creationdate}" data-modificationdate="{modificationdate}"
                                           data-businessimpactdescription="{businessimpactdescription}" data-name="{name}"
                                           data-functionalgroup="{functionalGroup}" data-systemFunction="{systemFunction}" data-functionname="{functionname}" data-subsystemname="{subsystemname}" data-modulename="{modulename}">
                                               Edit
                   </button>
+                  
                   <!--creates the delete button in modal-->
                   <button class="btn btn-danger delete-concept" data-conceptid="{conceptid}" style="float: right" >
                                                Delete

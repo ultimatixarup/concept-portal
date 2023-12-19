@@ -87,12 +87,12 @@ app.get('/table', async (req, res) => {
         if (searchConditions.length > 0) {
             conceptQuery += " AND (" + searchConditions.join(" AND ") + ")";
         }
-        console.log("table.dust---"+searchParams);
+        //console.log("table.dust---"+searchParams);
         //const conceptResult = await client.query(conceptQuery)
-        console.log("in table-l52=="+conceptQuery);
+       // console.log("in table-l52=="+conceptQuery);
         const conceptResult = await client.query(conceptQuery, searchParams);
         //const conceptSearchResult = await client.query(conceptSearchQuery, searchParams);
-        console.log("in table : l91="+conceptResult);
+        //console.log("in table : l91="+conceptResult);
         const concepts = conceptResult.rows;
  
  
@@ -156,7 +156,7 @@ app.get('/table', async (req, res) => {
             //console.log("Module Data: ", concept.module);
         };
         /// data pull test
-        console.log("Concept Data:", concepts);
+        //console.log("Concept Data:", concepts);
         res.render('table', { 
             concept: concepts,
             titleSearch,
@@ -177,14 +177,20 @@ app.get('/table', async (req, res) => {
 app.post('/add', async(req, res) => {
     let client;
     console.log("inside add method");
+    
+
     try {
         client = await pool.connect();
         const sanitizedValue = (value) => value === "" ? null : value;
+        
         const {
             title, status = null, description = null, inscope = null, creationdate = null,
             name = null, initial = null,
             businessimpactdescription = null,
-            subsystemname = null
+            subsystemname = null,
+            edit = null,
+            id = null
+            
         } = req.body;
         const safeStatus = sanitizedValue(status);
         const safeDescription = sanitizedValue(description);
@@ -194,7 +200,34 @@ app.post('/add', async(req, res) => {
         const safeInitial = sanitizedValue(initial);
         const safeBusinessImpactDescription = sanitizedValue(businessimpactdescription);
         const safeSubsystemname = sanitizedValue(subsystemname);
- 
+        const safeid = sanitizedValue(id);
+        // console.log("inside add2" + sanitizedValue(req.query.edit) );
+        console.log("inside add2" + req.body.edit );
+
+        const page_edit = req.body.edit;
+        console.log("THIS IS PAGE EDIT" + req.body.edit );
+        console.log(req.body);
+
+        if (page_edit == "true" ) {
+            console.log("inside ABCD is TRUE");
+            try {
+                const client = await pool.connect();
+                const result = await client.query("UPDATE mydb.concept SET title=$1, status=$2, description=$3, inscope=$4 WHERE conceptid=$5",
+                [req.body.title, req.body.status, req.body.description, req.body.inscope, req.body.conceptid]);
+
+                console.log("inside add3" + req.body.title);
+
+                console.log(req.body);
+
+                res.status(200).send('Success');
+                return;
+
+            } catch (err) {
+                console.error('Error executing query', err);
+                res.status(500).send('Internal Server Error');
+            }
+        }
+
         // Checks for important empty boxes
         if (!title || title == "" ) {
             res.status(400).send('Title is required');
@@ -225,20 +258,21 @@ app.post('/add', async(req, res) => {
         `;
          const checkEmployeeValues = [name, initial];
          const existingEmployee = await client.query(checkEmployeeQuery, checkEmployeeValues);
-         let employeeid;
+         let employeeid = 1;
+         let globalpk = Math.floor(Math.random() * 4);
          if (existingEmployee.rows.length > 0){
              // Employee already exist, grab ID
              employeeid = existingEmployee.rows[0].employeeid;
          } else {
              // Insert into employee table
              const employeeQuery = `
-                INSERT INTO mydb.Employee(name, initial)
-                VALUES ($1, $2)
+                INSERT INTO mydb.Employee(employeeid,name, initial)
+                VALUES ($1, $2, $3)
                 RETURNING employeeid
             `;
-             const employeeValues = [name, initial];
-             const employeeResult = await client.query(employeeQuery, employeeValues);
-             employeeid = employeeResult.rows[0].employeeid;
+             const employeeValues = [Math.floor(Math.random() * 4),name, initial];
+             //const employeeResult = await client.query(employeeQuery, employeeValues);
+             //employeeid = employeeResult.rows[0].employeeid;
          }
          // Insert into Author Concept table
          const authorConceptQuery = `
@@ -253,8 +287,10 @@ app.post('/add', async(req, res) => {
          // Insert into business impact table
          const businessImpactQuery = `                                                                                                                                                         
              INSERT INTO mydb.businessimpact(conceptid, businessimpactdescription)
-             VALUES ($1, $2)
+             VALUES ($1,$2)
              `;
+             globalpk = Math.floor(Math.random() * 4);
+             
          const businessImpactValues = [conceptid, businessimpactdescription];
          await client.query(businessImpactQuery, businessImpactValues);
          }
@@ -283,6 +319,7 @@ app.post('/add', async(req, res) => {
         await client.query('COMMIT');
         res.render('table');
     } catch (err) {
+        console.log(err);
         console.error('Error executing query', err.stack);
         //res.status(500).send('Internal Server Error');
         res.status(500).json({ error: err.message });
@@ -330,6 +367,17 @@ app.post('/add', async(req, res) => {
 // });
  
  
+// // Trying to add details to concept page after edit
+// app.get('/concept/:id', async (req, res) => {
+//     const conceptId = req.params.id;
+//     const conceptQuery = 'SELECT * FROM mydb.Concept WHERE conceptid = $1';
+//     const conceptValues = [conceptId];
+//     const conceptResult = await client.query(conceptQuery, conceptValues);
+//     res.json(conceptResult.rows[0]);
+// });
+
+
+
 // Delete Concepts
 app.delete('/delete/:id', async(req, res) => {
     const conceptId = req.params.id;
@@ -351,6 +399,7 @@ app.delete('/delete/:id', async(req, res) => {
         await client.query('DELETE FROM mydb.concept WHERE conceptid = $1', [conceptId]);
  
         await client.query('COMMIT');
+        res.render("table");
     } catch (err) {
         await client.query('ROLLBACK');
         console.error('Error executing query', err);
@@ -377,7 +426,13 @@ app.post('/edit', async(req, res) => {
  
 // takes user to add concept page
 app.get('/addreport', (req, res) => {
-    res.render('addreport');
+
+    console.log("CUSTOM PRINT");
+    console.log(req.query.edit);
+   
+    //req.query.edit=true
+
+    res.render('addreport', req.query);
 });
 
 app.get('/', (req, res) => {

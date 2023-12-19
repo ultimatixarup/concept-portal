@@ -1,11 +1,14 @@
 
 $(document).ready(function(){
 
+    $("#creationdate").datepicker();
+
     
+
 
     $('#submit-button').on('click',function(e){
 
-        alert("submit clicked");
+       // alert("submit clicked");
         e.preventDefault();
 
         console.log("in submit button action");
@@ -51,12 +54,53 @@ $(document).ready(function(){
         window.location.href = "/";
 
     });
+
+    $('#save-button').click(function(e){
+
+        console.log("in SAVE button action");
+        
+
+        $.ajax({
+
+            url: '/add',
+
+            type: 'post',
+
+            data: $('form').serialize(),
+
+            success: function(data){
+
+                // $('#modal-message-content').html('A concept has been added.');
+                //alert('AJAX SUCCESS!'); 
+
+                alert('Concept was added successfully!');    
+
+                // $('#messageModal').modal('show');
+
+                // $('form').trigger("reset");
+
+                // document.write(data);
+                window.location.href = "/table";
+
+            },
+
+            error: function(err){
+
+                $('#modal-message-content').html('Error occurred: ' + err.message);
+
+                $('#messageModal').modal('show');
+
+            }
+
+        });
+
+    });
  
     // Support Materal Modal/Button on Add-Report
 
     $('#support-material-form').on('submit', function(e){
 
-        alert("support material submit");
+        //alert("support material submit");
 
         e.preventDefault();
 
@@ -103,33 +147,45 @@ $(document).ready(function(){
 
     $('.edit-concept').on('click', function(){
 
-        $('#edit-form-title').val($(this).data('title'));
+        //alert('EDIT BUTTON!'); 
 
-        $('#edit-form-status').val($(this).data('status'));
+        try{
 
-        $('#edit-form-description').val($(this).data('description'));
+            window.location.href = "/addreport?id="+$(this).data('id')+"&title="+$(this).data('title')+"&status="+$(this).data('status')+"&description="+$(this).data('description')+"&inscope="+$(this).data('inscope')+"&name="+$(this).data('name')+"&creationdate="+new Date($(this).data('creationdate')).toLocaleString().split(",")[0]+"&modificationdate="+$(this).data('modificationdate')+"&businessimpactdescription="+$(this).data('businessimpactdescription')+"&functionalGroup="+$(this).data('functionalGroup')+"&systemFunction="+$(this).data('systemFunction')+"&functionname="+$(this).data('functionname')+"&subsystemname="+$(this).data('subsystemname')+"&modulename="+$(this).data('modulename')+"&author="+$(this).data('author')+"&authorid="+$(this).data('authorid')+"&authorname="+$(this).data('authorname')+"&authorrole="+$(this).data('authorrole')+"&authorlocation="+$(this).data('authorlocation')+"&authordepartment="+$(this).data('authordepartment')+"&authorbusinessunit="+$(this).data('authorbusinessunit')+"&authorcompany="+$(this).data('authorcompany')+"&authorcountry="+$(this).data('authorcountry')+"&authorstate="+$(this).data('authorstate')+"&authorcity="+$(this).data('authorcity')+"&authorzip="+$(this).data('authorzip')+"&authorphone="+$(this).data('authorphone')+"&authoremail="+$(this).data('authoremail')+"&authoraddress="+$(this).data('authoraddress')+"&authoraddress2="+$(this).data('authoraddress2')+"&authoraddress3="+$(this).data('authoraddress3')+"&authoraddress4="+$(this).data('authoraddress4')+"&authoraddress5="+$(this).data('authoraddress5')+"&authoraddress6="+$(this).data('authoraddress6')+"&authoraddress7="+$(this).data('authoraddress7')+"&authoraddress8="+$(this).data('authoraddress8')+"&authoraddress9="+$(this).data('authoraddress9')+"&authoraddress10="+$(this).data('authoraddress10')+"&authoraddress11="+$(this).data('authoraddress11')+"&authoraddress12="+$(this).data('authoraddress12')+"&edit=true";
+        } catch(err){
+            alert(err);
+            console.log(err);
+        }
+        
+        // $('#edit-form-title').val($(this).data('title'));
 
-        $('#edit-form-inscope').val($(this).data('inscope'));
+        // $('#edit-form-status').val($(this).data('status'));
 
-        $('#edit-form-conceptid').val($(this).data('id'));
+        // $('#edit-form-description').val($(this).data('description'));
 
-        $('#edit-form-name').val($(this).data('name'));
+        // $('#edit-form-inscope').val($(this).data('inscope'));
 
-        $('#edit-form-creationdate').val($(this).data('creationdate'));
+        // $('#edit-form-conceptid').val($(this).data('id'));
 
-        $('#edit-form-modificationdate').val($(this).data('modificationdate'));
+        // // $('#edit-form-conceptid').val($(this).data('conceptid'));
 
-        $('#edit-form-businessimpactdescription').val($(this).data('businessimpactdescription'));
+        // $('#edit-form-name').val($(this).data('name'));
 
-        $('#edit-form-functionalGroup').val($(this).data('functionalGroup'));
+        // $('#edit-form-creationdate').val($(this).data('creationdate'));
 
-        $('#edit-form-systemFunction').val($(this).data('systemFunction'));
+        // $('#edit-form-modificationdate').val($(this).data('modificationdate'));
 
-        $('#edit-form-functionname').val($(this).data('functionname'));
+        // $('#edit-form-businessimpactdescription').val($(this).data('businessimpactdescription'));
 
-        $('#edit-form-subsystemname').val($(this).data('subsystemname'));
+        // $('#edit-form-functionalGroup').val($(this).data('functionalGroup'));
 
-        $('#edit-form-modulename').val($(this).data('modulename'));
+        // $('#edit-form-systemFunction').val($(this).data('systemFunction'));
+
+        // $('#edit-form-functionname').val($(this).data('functionname'));
+
+        // $('#edit-form-subsystemname').val($(this).data('subsystemname'));
+
+        // $('#edit-form-modulename').val($(this).data('modulename'));
 
     });
  
@@ -273,7 +329,7 @@ $(document).ready(function(){
 
                     console.log('Deleting Concept...');
 
-                    window.location.href='/';
+                    window.location.href='/table';
 
                 },
 
